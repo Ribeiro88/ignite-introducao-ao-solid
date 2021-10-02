@@ -1,0 +1,148 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Ignite-Introdução-ao-Solid",
+      "description": "Ignite-Introdução-ao-Solid Challenge",
+      "version": "1.0.0",
+      "contact": {
+        "email": "d.ribeiro2588@gmail.com"
+      }
+    },
+    "paths": {
+      "/users": {
+        "post": {
+          "tags": [
+            "Users"
+          ],
+          "summary": "Create a user",
+          "description": "Create a new user.",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "email"
+                  ],
+                  "example": {
+                    "name": "Danilo Ribeiro",
+                    "email": "d.ribeiro2588@gmail.com"
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "User created.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "admin": false,
+                      "id": "09dafed2-2aaf-4b2c-bfd0-d2e48ec64828",
+                      "name": "Danilo Ribeiro",
+                      "email": "d.ribeiro2588@gmail.com",
+                      "created_at": "2021-10-02T15:47:16.370Z",
+                      "updated_at": "2021-10-02T15:47:16.370Z"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "User already exists!",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "example": {
+                      "error": "User already exists!"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "get": {
+          "tags": [
+            "Users"
+          ],
+          "summary": "Lists all users.",
+          "description": "List all created users.",
+          "response": {
+            "200": {
+              "description": "Success!",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/users/{user_id}": {
+        "get": {
+          "tags": [
+            "Users"
+          ],
+          "summary": "Lists user profile by ID.",
+          "description": "List the user profile."
+        },
+        "components": {
+          "parameters": {
+            "name": "user_id",
+            "in": "path",
+            "description": "user_id to search",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "/users/{user_id}/admin": {
+        "patch": {
+          "tags": [
+            "Users"
+          ],
+          "summary": "Turns a user an admin.",
+          "description": "Use an user ID, turns it an admin."
+        },
+        "parameters": {
+          "name": "user_id",
+          "in": "path",
+          "description": "user_id to search",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
